@@ -1,19 +1,37 @@
-#cookieSalesSeattle {
-  color: purple;
+main {
+  background-color: #8aa192;
 }
 
-#cookieSalesDubia {
-  color: salmon;
+table, th, td {
+  text-align: center;
 }
 
-#cookieSalesTokyo {
-  color: rgb(2, 144, 200);
+th, td {
+  padding: 15px;
+  text-align: left;
+  width: fit-content;
 }
 
-#cookieSalesParis {
-  color: rgb(200, 14, 20);
+td {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-#cookieSalesLima {
-  color: rgb(100, 14, 200);
+th {
+  height: 30px;
+}
+
+tr, tfoot {
+  border: 1px solid black;
+}
+
+tr:nth-child(even) {
+  background-color: #f2b3a4;
+}
+
+tr:nth-child(odd) {
+  background-color: #e5c9b2;
+}
+
+tfoot {
+  background-color: #9fa9a0;
 }
