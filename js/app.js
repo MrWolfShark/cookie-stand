@@ -35,6 +35,9 @@ let limaStore = {
   avgCookieSoldPerHour: 2.3,
 } 
 
+let cities = [seattleStore, tokyoStore, dubiaStore, parisStore, limaStore]
+let cityObjects = []
+
 class City {
   constructor(cityObj) {
     this.name = cityObj.name;
@@ -44,7 +47,6 @@ class City {
     this.hoursOpen = ['6 a.m.', '7 a.m.', '8 a.m.', '9 a.m.', '10 a.m.', '11 a.m.', '12 p.m.', '1 p.m.', '2 p.m.', '3 p.m.', '4 p.m.', '5 p.m.', '6 p.m.', '7 p.m.', '8 p.m.'];
     for (let i = 0; i < this.hoursOpen.length; i++) {
       let cookiesSoldThisHour = Math.ceil(Math.floor(Math.random() * (cityObj.maxCustomer - cityObj.minCustomer + 1) + cityObj.minCustomer) * cityObj.avgCookieSoldPerHour);
-      console.log(cookiesSoldThisHour);
       this.dailySoldCookies += cookiesSoldThisHour;
       this.cookiesSoldEachHour.push(cookiesSoldThisHour);
     }
@@ -90,17 +92,11 @@ headerTd.id = 'table-header';
 headerTd.textContent = 'Daily Location Total';
 tableHeaderRow.appendChild(headerTd)
 
-
-let seattle = new City(seattleStore);
-seattle.renderObjTableRow()
-let tokyo = new City(tokyoStore);
-tokyo.renderObjTableRow()
-let paris = new City(parisStore);
-paris.renderObjTableRow()
-let dubia = new City(dubiaStore);
-dubia.renderObjTableRow()
-let lima = new City(limaStore);
-lima.renderObjTableRow()
+for (let i=0; i < cities.length; i++) {
+  let city = new City(cities[i]);
+  city.renderObjTableRow();
+  cityObjects.push(city);
+}
 
 let tableFoot = document.createElement('tfoot');
 table.appendChild(tableFoot);
@@ -110,11 +106,70 @@ totalsLabel.id = 'total-label';
 totalsLabel.textContent = 'Totals';
 tableFoot.appendChild(totalsLabel);
 for (let i=0; i < hoursOpen.length; i++) {
+  let total = 0;
+  for (let j=0; j < cityObjects.length; j++) {
+    total += cityObjects[j].cookiesSoldEachHour[i]
+  };
   let cellData = document.createElement('td');
   cellData.id = 'totals-cells';
-  cellData.textContent = parseInt(seattle.cookiesSoldEachHour[i] + tokyo.cookiesSoldEachHour[i] + paris.cookiesSoldEachHour[i] + dubia.cookiesSoldEachHour[i] + lima.cookiesSoldEachHour[i])
+  cellData.textContent = parseInt(total)
   tableFoot.appendChild(cellData)
 }
+
 let finalTotalCellData = document.createElement('td');
-  finalTotalCellData.textContent = parseInt(seattle.dailySoldCookies + tokyo.dailySoldCookies + paris.dailySoldCookies + dubia.dailySoldCookies + lima.dailySoldCookies)
-  tableFoot.appendChild(finalTotalCellData)
+let finalTotal = 0;
+for (let i=0; i < cityObjects.length; i++) {
+  finalTotal += cityObjects[i].dailySoldCookies
+};
+
+finalTotalCellData.textContent = parseInt(finalTotal);
+tableFoot.appendChild(finalTotalCellData);
+
+let form = document.querySelector('form');
+
+let newCities =[];
+
+let submitSite = function(event) {
+  event.preventDefault();
+  let  newCity = {
+    name: event.target.storeName.value,
+    minCustomer: +event.target.minCustomer.value,
+    maxCustomer: +event.target.maxCustomer.value,
+    avgCookieSoldPerHour: +event.target.avgCookieSoldPerHour.value,
+  };
+  newCities.push(newCity);
+  
+  let city = new City(newCity);
+  cityObjects.push(city);
+  city.renderObjTableRow();
+  let tableFoot = document.querySelector('tfoot');
+  table.removeChild(tableFoot);
+  let newTableFoot = document.createElement('tfoot');
+  table.appendChild(newTableFoot);
+  newTableFoot.id = 'table-footer';
+  let totalsLabel = document.createElement('td');
+  totalsLabel.id = 'total-label';
+  totalsLabel.textContent = 'Totals';
+  newTableFoot.appendChild(totalsLabel);
+  for (let i=0; i < hoursOpen.length; i++) {
+    let total = 0;
+    for (let j=0; j < cityObjects.length; j++) {
+      total += cityObjects[j].cookiesSoldEachHour[i]
+    };
+    let cellData = document.createElement('td');
+    cellData.id = 'totals-cells';
+    cellData.textContent = parseInt(total)
+    newTableFoot.appendChild(cellData)
+  }
+
+  let finalTotalCellData = document.createElement('td');
+  let finalTotal = 0;
+  for (let i=0; i < cityObjects.length; i++) {
+    finalTotal += cityObjects[i].dailySoldCookies
+  };
+
+  finalTotalCellData.textContent = parseInt(finalTotal);
+  newTableFoot.appendChild(finalTotalCellData);
+}
+
+form.addEventListener('submit', submitSite)

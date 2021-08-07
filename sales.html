@@ -22,8 +22,28 @@
       </nav>
     </header>
     <main>
-      <h2>Sales Stats</h2>
-      <div id="Sales-Table"></div>
+      <div class="container">
+        <form>
+          <fieldset>
+            <legend>Add a Store</legend>
+            <label>Store Name
+              <input type="text" name="storeName" required>
+            </label>
+            <label>Minimum Customers Served Per Hour
+              <input name="minCustomer" required>
+            </label>
+            <label>Maximum Customers Served Per Hour
+              <input name="maxCustomer" required>
+            </label>
+            <label>Average Cookies Sold per Customer
+              <input name="avgCookieSoldPerHour" required>
+            </label>
+            <button type="submit">Add Store</button>
+          </fieldset>
+        </form>
+        
+        <div id="Sales-Table"></div>
+      </div>
     </main>
     <script src="./js/app.js" type="text/javascript"></script>
   </body>

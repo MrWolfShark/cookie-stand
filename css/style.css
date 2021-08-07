@@ -47,7 +47,7 @@ h1 {
   margin: 30px;
 }
 
-a {
+a, li {
   text-decoration: none;
   font-family: 'Cherry Swash', cursive;
   color: white;
@@ -132,22 +132,25 @@ h2, h3 {
   margin: 20px;
 }
 
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+table {
+  margin: 20px;
+  height: auto;
+}
+
 table, th, td {
   text-align: center;
 }
 
 th, td {
-  padding: 15px;
-  text-align: left;
-  width: fit-content;
-}
-
-td {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-th {
-  height: 30px;
+  padding: .75rem;
+  width: max-content;
+  height: min-content;
+  font-family: 'Montserrat', sans-serif;
 }
 
 tr, tfoot {
@@ -163,5 +166,53 @@ tr:nth-child(odd) {
 }
 
 tfoot {
-  background-color: #9fa9a0;
+  background-color: #8aa192;
+  color: white;
+  font-weight: bold;
+}
+
+form {
+  height: max-content;
+  background-color: #bfb4ae;
+  margin: 20px;
+  border: 1px;
+  border-style: solid;
+}
+
+fieldset {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+}
+
+legend {
+  font-family: 'Cherry Swash', cursive;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  margin: .5rem;
+}
+
+input {
+  float: right;
+  margin-left: .5rem;
+}
+
+button {
+  width:max-content;
+  margin-top: 20px;
+  font-size: 14px;
+  font-family: 'Cherry Swash', cursive;
+  background-color: #f2b3a4;
+  color: black;
+}
+
+button:hover {
+  background-color:#e5c9b2;
+  transition-delay: 50ms;
 }
